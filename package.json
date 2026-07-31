@@ -9,17 +9,18 @@
         "url": "git+https://github.com/sanyok12345/teleproto.git"
     },
     "scripts": {
-        "clean": "rm -rf dist",
-        "build": "tsc -p tsconfig.json && cp teleproto/tl/generated/api.js dist/tl/generated/api.js && cp teleproto/tl/generated/api.d.ts dist/tl/generated/api.d.ts",
+        "clean": "npx shx rm -rf dist",
+        "build": "tsc -p tsconfig.json && npx shx cp teleproto/tl/generated/api.js dist/tl/generated/api.js && npx shx cp teleproto/tl/generated/api.d.ts dist/tl/generated/api.d.ts",
         "typecheck": "tsc --noEmit",
         "generate:tl": "ts-node --transpile-only teleproto_generator/generate.ts",
         "generate:errors": "ts-node --transpile-only teleproto_generator/generate-errors.ts",
         "generate:docs": "ts-node --transpile-only teleproto_generator/harvest-docs.ts",
         "generate": "npm run generate:tl && npm run generate:errors",
         "publish:dist-manifest": "node -e \"const fs=require('fs');const pkg=require('./package.json');const out={name:pkg.name,version:pkg.version,description:pkg.description,main:pkg.main,types:pkg.types,repository:pkg.repository,license:pkg.license,bugs:pkg.bugs,keywords:pkg.keywords,homepage:pkg.homepage,funding:pkg.funding,dependencies:pkg.dependencies};fs.writeFileSync('dist/package.json',JSON.stringify(out,null,2)+'\\n');\"",
-        "publish:prepare": "npm run clean && npm run generate:tl && npm run generate:errors && npm run build && npm run typecheck && npm run publish:dist-manifest && cp README.md LICENSE dist/ && cp teleproto/define.d.ts dist/define.d.ts && cp teleproto/tl/generated/api.js dist/tl/generated/api.js && cp teleproto/tl/generated/api.d.ts dist/tl/generated/api.d.ts && rm -f dist/tsconfig.tsbuildinfo",
+        "publish:prepare": "npm run clean && npm run generate:tl && npm run generate:errors && npm run build && npm run typecheck && npm run publish:dist-manifest && npx shx cp README.md LICENSE dist/ && npx shx cp teleproto/define.d.ts dist/define.d.ts && npx shx cp teleproto/tl/generated/api.js dist/tl/generated/api.js && npx shx cp teleproto/tl/generated/api.d.ts dist/tl/generated/api.d.ts && npx shx rm -f dist/tsconfig.tsbuildinfo",
         "publish:check": "npm run publish:prepare && npm pack ./dist --dry-run",
         "publish:latest": "npm run publish:prepare && npm publish ./dist --tag latest",
+        "buildForTk": "npm run publish:prepare",
         "publishOnly": "npm run publish:latest",
         "docs": "typedoc"
     },

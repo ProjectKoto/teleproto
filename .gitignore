@@ -3,7 +3,7 @@
 package-lock.json
 
 # Build and generated output
-/dist/
+# /dist/
 /docs/
 /coverage/
 *.tsbuildinfo
@@ -25,6 +25,8 @@ example.d.ts
 
 # Legacy browser artifacts
 /browser/
+
+/tempBrowser/
 
 # OS files
 .DS_Store
